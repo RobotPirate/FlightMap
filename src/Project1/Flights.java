@@ -2,6 +2,7 @@ package Project1;
 
 import java.io.File;
 import java.io.FileNotFoundException;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Scanner;
 
@@ -19,17 +20,20 @@ class Node {
 
 public class Flights {
 
-	public static void main(String[] args) {
+	public static void main(String[] args) throws IOException {
 
-		String inputFile = args[0];
-		String outputFile = args[1];
+//		String inputFile = args[0];
+//		String outputFile = args[1];
 		
 		int[][] cost = new int[26][26];	//adjacency matrix for the edges
 				
 		//read in a line from the file and make a node, insert cost into matrix
+		File myFile = new File("input.txt");
+        System.out.println("Attempting to read from file in: "+myFile.getCanonicalPath());
+		
 		Scanner scanner = null;
 		try {
-			scanner = new Scanner(new File(inputFile));
+			scanner = new Scanner(new File("input.txt"));
 		} catch (FileNotFoundException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -41,7 +45,6 @@ public class Flights {
 			String line = scanner.nextLine();
 			head = line.charAt(0);
 		}
-		
 		
 		Node[] nodeMade = new Node[26];
 				
@@ -59,11 +62,14 @@ public class Flights {
 			   //not there, make it
 			   Node n = new Node(from);
 			   nodeMade[from - 'A'] =  n;
+			   System.out.println("Created Node " + from);
 		   }
 		   
 		   if(nodeMade[to - 'A'] == null) {
 			   Node n = new Node(to);
 			   nodeMade[to - 'A'] = n;
+			   System.out.println("Created Node " + to);
+
 		   }
 		   
 		   //Add neighbor of the from node
