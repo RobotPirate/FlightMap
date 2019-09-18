@@ -18,31 +18,16 @@ class Node {
 	}
 }
 
-
-class FlightPath{
-	char destination;
-	int totalCost;
-	ArrayList<Node> itinerary;
-	
-	public FlightPath(char destinationCity) {
-		this.destination = destinationCity;
-		totalCost = 0; 
-		itinerary = new ArrayList<Node>();
-	}
-}
-
-
-
 public class FlightMap {
 	int[][] cost = new int[26][26];	//adjacency matrix for the edges
 	Node[] nodeMade = new Node[26];
+	String inputFile;
+	String outputFile;
 	
 	//constructor
-	public FlightMap(String inputFile, String outputFile) {
-		
-	
-		
-		
+	public FlightMap(String inputFile, String outputFile) {		
+		this.inputFile = inputFile;
+		this.outputFile = outputFile;
 	}
 	
 	
@@ -94,25 +79,25 @@ public class FlightMap {
 		   cost[from - 'A'][to - 'A'] = fare;
 		}
 	
-		//Loop over destination list
-		for(Node node: nodeMade) {
-			if(node.ch != head) {
-			
-				FlightPath fp = new FlightPath(node.ch);
-				//BFS on head, node.ch
-				//add flight path to ans array
-			}
-		}	
-		
-		//Print out ans array
+//		//Loop over destination list
+//		for(Node node: nodeMade) {
+//			if(node.ch != head) {
+//			
+//				FlightPath fp = new FlightPath(node.ch);
+//				//BFS on head, node.ch
+//				//add flight path to ans array
+//			}
+//		}	
+//		
+//		//Print out ans array
 			
 	}
 		
-	public void BFS(char FromCity) {
-		
-		Queue<Node> cityQueue = new LinkedList<Node>();
-		HashSet<Node> citySeen = new HashSet<Node>();
-				
-	}
+//	public void BFS(char FromCity) {
+//		
+//		Queue<Node> cityQueue = new LinkedList<Node>();
+//		HashSet<Node> citySeen = new HashSet<Node>();
+//				
+//	}
 
 }
