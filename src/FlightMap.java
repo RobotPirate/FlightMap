@@ -31,12 +31,12 @@ public class FlightMap {
 	}
 	
 	
-	public void getFlightCosts(String inputFile, String outputFile) {
+	public void getFlightCosts() {
 		
 		//read in a line from the file and make a node, insert cost into matrix
 		Scanner scanner = null;
 		try {
-			scanner = new Scanner(new File("input.txt"));
+			scanner = new Scanner(new File(this.inputFile));
 		} catch (FileNotFoundException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();

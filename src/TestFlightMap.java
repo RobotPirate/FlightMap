@@ -20,5 +20,14 @@ public class TestFlightMap {
    assertEquals(null, fm.nodeMade[25]);
   }
   
+  @Test
+  public void getFlightCostsTest() {
+   FlightMap fm = new FlightMap("input.txt", "out");
+   assertEquals("input.txt", fm.inputFile);
+   fm.getFlightCosts();
+   assertEquals('P', fm.nodeMade['P'-'A'].ch);
+  }
+  
+  
   
 }
