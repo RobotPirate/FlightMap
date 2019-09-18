@@ -1,10 +1,8 @@
-import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.*;
 
 import org.junit.Test;
 
-import Project1.SearchMap;
-
-public class TestMap {
+public class TestSearchMap {
   @Test
   public void evaluatesExpression() {
    SearchMap s = new SearchMap();

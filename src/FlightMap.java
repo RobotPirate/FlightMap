@@ -1,23 +1,54 @@
-package Project1;
-
 import java.io.File;
 import java.io.FileNotFoundException;
-import java.io.IOException;
+import java.util.ArrayList;
+import java.util.HashSet;
+import java.util.LinkedList;
+import java.util.Queue;
 import java.util.Scanner;
 
-public class SearchMap {
 
-	public static void main(String[] args) throws IOException {
-		// TODO Auto-generated method stub
-//		String inputFile = args[0];
-//		String outputFile = args[1];
+class Node {
+	char ch;
+	ArrayList<Node> neighbors;
+	
+	//Constructor
+	Node(char ch){
+		this.ch = ch;
+		neighbors = new ArrayList<Node>();
+	}
+}
+
+
+class FlightPath{
+	char destination;
+	int totalCost;
+	ArrayList<Node> itinerary;
+	
+	public FlightPath(char destinationCity) {
+		this.destination = destinationCity;
+		totalCost = 0; 
+		itinerary = new ArrayList<Node>();
+	}
+}
+
+
+
+public class FlightMap {
+	int[][] cost = new int[26][26];	//adjacency matrix for the edges
+	Node[] nodeMade = new Node[26];
+	
+	//constructor
+	public FlightMap(String inputFile, String outputFile) {
 		
-		int[][] cost = new int[26][26];	//adjacency matrix for the edges
-				
+	
+		
+		
+	}
+	
+	
+	public void getFlightCosts(String inputFile, String outputFile) {
+		
 		//read in a line from the file and make a node, insert cost into matrix
-		File myFile = new File("input.txt");
-        System.out.println("Attempting to read from file in: "+myFile.getCanonicalPath());
-		
 		Scanner scanner = null;
 		try {
 			scanner = new Scanner(new File("input.txt"));
@@ -27,13 +58,11 @@ public class SearchMap {
 		}
 		
 		//first line-- remember the start node
-		char head;
+		char head = '0';
 		if(scanner.hasNextLine()) {
 			String line = scanner.nextLine();
 			head = line.charAt(0);
 		}
-		
-		Node[] nodeMade = new Node[26];
 				
 		while (scanner.hasNextLine()) {
 		   String line = scanner.nextLine();
@@ -56,7 +85,6 @@ public class SearchMap {
 			   Node n = new Node(to);
 			   nodeMade[to - 'A'] = n;
 			   System.out.println("Created Node " + to);
-
 		   }
 		   
 		   //Add neighbor of the from node
@@ -65,8 +93,26 @@ public class SearchMap {
 		   //update adjacency matrix
 		   cost[from - 'A'][to - 'A'] = fare;
 		}
+	
+		//Loop over destination list
+		for(Node node: nodeMade) {
+			if(node.ch != head) {
+			
+				FlightPath fp = new FlightPath(node.ch);
+				//BFS on head, node.ch
+				//add flight path to ans array
+			}
+		}	
 		
+		//Print out ans array
+			
+	}
 		
+	public void BFS(char FromCity) {
+		
+		Queue<Node> cityQueue = new LinkedList<Node>();
+		HashSet<Node> citySeen = new HashSet<Node>();
+				
 	}
 
 }
