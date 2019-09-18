@@ -26,6 +26,10 @@ public class TestFlightMap {
    assertEquals("input.txt", fm.inputFile);
    fm.getFlightCosts();
    assertEquals('P', fm.nodeMade['P'-'A'].ch);
+   assertEquals(null, fm.nodeMade['M'-'A']);
+   assertEquals('W', fm.nodeMade['P'-'A'].neighbors.get(0).ch);
+   assertEquals(300, fm.costs['S'-'A']['T'-'A']);
+   assertEquals(500, fm.costs['W'-'A']['Y'-'A']);
   }
   
   

@@ -13,7 +13,7 @@ public class SearchMap {
 		
 		FlightMap fm = new FlightMap("input.txt", "output.txt");
 		
-		//fm.getFlightCosts(char FromCity);
+		//fm.getFlightCosts();
 		//returns the outputFile string
 		
 				
