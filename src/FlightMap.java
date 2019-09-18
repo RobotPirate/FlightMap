@@ -19,7 +19,7 @@ class Node {
 }
 
 public class FlightMap {
-	int[][] cost = new int[26][26];	//adjacency matrix for the edges
+	int[][] costs = new int[26][26];	//adjacency matrix for the edges
 	Node[] nodeMade = new Node[26];
 	String inputFile;
 	String outputFile;
@@ -76,28 +76,7 @@ public class FlightMap {
 		   nodeMade[from - 'A'].neighbors.add(nodeMade[to - 'A']);
 		   
 		   //update adjacency matrix
-		   cost[from - 'A'][to - 'A'] = fare;
+		   costs[from - 'A'][to - 'A'] = fare;
 		}
-	
-//		//Loop over destination list
-//		for(Node node: nodeMade) {
-//			if(node.ch != head) {
-//			
-//				FlightPath fp = new FlightPath(node.ch);
-//				//BFS on head, node.ch
-//				//add flight path to ans array
-//			}
-//		}	
-//		
-//		//Print out ans array
-			
 	}
-		
-//	public void BFS(char FromCity) {
-//		
-//		Queue<Node> cityQueue = new LinkedList<Node>();
-//		HashSet<Node> citySeen = new HashSet<Node>();
-//				
-//	}
-
 }
