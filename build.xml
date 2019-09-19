@@ -1,9 +1,9 @@
 <?xml version = "1.0"?>
+<!-- STOP HERE -->
 <project name="FlightMap" basedir="." default="compile">
 
 	<property name="main.source.dir" location="src" />
-	<property name="bin.dir" location="bin" />
-	<property name="main.bin.dir" location="bin/main" />
+	<property name="main.bin.dir" location="bin" />
 	<property name="main.doc.dir" location="doc" />
 	<property name="main.dist.dir" location="dist" />
 	<property name="test.bin.dir" value="bin/test" />
@@ -20,8 +20,6 @@
 
 	<target name="clean">
 		<delete dir="${main.bin.dir}" />
-		<delete dir="${test.bin.dir}" />
-		<delete dir="${bin.dir}" />
 		<delete dir="${main.dist.dir}" />
 		<delete dir="${main.doc.dir}" />
 
@@ -64,14 +62,13 @@
 
 
 	<target name="test" depends="compile">
-		<mkdir dir="${test.bin.dir}" />
-		<javac srcdir="${main.source.dir}" destdir="${test.bin.dir}" includeantruntime="false">
+		<javac srcdir="${main.source.dir}" destdir="${main.bin.dir}" includeantruntime="false">
 			<classpath refid="classpath.test" />
 		</javac>
 		<junit printsummary="on" haltonfailure="yes" fork="true">
 			<classpath>
 				<path refid="classpath.test" />
-				<pathelement location="${test.bin.dir}" />
+				<pathelement location="${main.bin.dir}" />
 			</classpath>
 			<formatter type="brief" usefile="false" />
 			<batchtest>
