@@ -2,8 +2,6 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.util.ArrayList;
 import java.util.HashSet;
-import java.util.LinkedList;
-import java.util.Queue;
 import java.util.Scanner;
 
 
@@ -11,6 +9,13 @@ class Node {
 	char ch;
 	ArrayList<Node> neighbors;
 	
+	
+	/**
+	 * Node class
+	 * which will then return the cost of flights in the 
+	 * file designated as output
+	 * @param ch somewords
+	 */
 	//Constructor
 	Node(char ch){
 		this.ch = ch;
@@ -24,12 +29,21 @@ public class FlightMap {
 	String inputFile;
 	String outputFile;
 	
+	/**
+	 * FlightMap constructor
+	 * which will then return the cost of flights in the 
+	 * file designated as output
+	 * @param inputFile an input file
+	 * @param outputFile an output file
+	 * @pre none
+	 * @post this.inputFile = @param inputFile
+	 * @post this.outputFile = @param outputFile
+	 */
 	//constructor
 	public FlightMap(String inputFile, String outputFile) {		
 		this.inputFile = inputFile;
 		this.outputFile = outputFile;
 	}
-	
 	
 	public void getFlightCosts() {
 		
@@ -51,7 +65,6 @@ public class FlightMap {
 				
 		while (scanner.hasNextLine()) {
 		   String line = scanner.nextLine();
-		   System.out.println(line);
 		   // process the line
 		   String[] words = line.split(" ");  
 		   char from = words[0].charAt(0);
@@ -63,20 +76,73 @@ public class FlightMap {
 			   //not there, make it
 			   Node n = new Node(from);
 			   nodeMade[from - 'A'] =  n;
-			   System.out.println("Created Node " + from);
+//			   System.out.println("Created Node " + from);
 		   }
 		   
 		   if(nodeMade[to - 'A'] == null) {
 			   Node n = new Node(to);
 			   nodeMade[to - 'A'] = n;
-			   System.out.println("Created Node " + to);
+//			   System.out.println("Created Node " + to);
 		   }
 		   
 		   //Add neighbor of the from node
 		   nodeMade[from - 'A'].neighbors.add(nodeMade[to - 'A']);
 		   
 		   //update adjacency matrix
-		   costs[from - 'A'][to - 'A'] = fare;
+		   costs[from - 'A'][to - 'A'] = fare;     
+		}
+		
+		//Print out header: Destination        Flight From P         Total Cost
+		System.out.println("Destination     Flight From " + head + "    " + "Total Cost");
+		
+		//Loop over destination list
+		for(Node node: nodeMade) {
+			if(node != null) {
+				if(node.ch != head) {
+					StringBuilder sb = new StringBuilder();
+					int returnCost = DFS(nodeMade[head-'A'], nodeMade[node.ch-'A'],sb, costs, new HashSet<Character>());
+					if( returnCost != 0) {
+						System.out.print(node.ch + "               ");
+						System.out.println(String.format("%-10s", sb.toString()) + "           " + returnCost);
+					}
+				}
+			}
 		}
 	}
+	
+	public int DFS(Node FromCity, Node DestCity, StringBuilder sb, int[][]costs, HashSet<Character> seen) {
+		if(FromCity.ch == DestCity.ch) {
+			sb.append(DestCity.ch);
+			return -1;
+		}
+
+		if(seen.contains(FromCity.ch)) {
+			return 0;
+		}
+		
+		//If I have no neighbors, I am a leaf that is not destination. Return false
+		if(FromCity.neighbors == null || FromCity.neighbors.size() == 0) {
+			return 0;
+		}
+			
+		seen.add(FromCity.ch);
+		
+		sb.append(FromCity.ch + " ");
+
+		for(Node neighbor : FromCity.neighbors) {
+			StringBuilder newSB = new StringBuilder();
+			int c = DFS(neighbor, DestCity, newSB, costs, seen);
+			if(c == -1){  //base case hit, DestCity found
+				sb.append(newSB);
+				return costs[FromCity.ch-'A'][neighbor.ch-'A'];
+			}
+			else if(c > 0){
+				sb.append(newSB);
+				return c + costs[FromCity.ch-'A'][neighbor.ch-'A'];
+			}
+		}
+		
+		return 0;
+	}
+	
 }

@@ -12,8 +12,8 @@ public class SearchMap {
 //		String outputFile = args[1];
 		
 		FlightMap fm = new FlightMap("input.txt", "output.txt");
-		System.out.println("In SearchMap");
-		//fm.getFlightCosts();
+//		System.out.println("In SearchMap");
+		fm.getFlightCosts();
 		//returns the outputFile string
 		
 				
