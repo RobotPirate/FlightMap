@@ -1,5 +1,7 @@
 import static org.junit.Assert.*;
 
+import java.io.IOException;
+
 import org.junit.Test;
 
 public class TestFlightMap {
@@ -24,7 +26,12 @@ public class TestFlightMap {
   public void getFlightCostsTest() {
    FlightMap fm = new FlightMap("input.txt", "out");
    assertEquals("input.txt", fm.inputFile);
-   fm.getFlightCosts();
+   try {
+	fm.getFlightCosts();
+} catch (IOException e) {
+	// TODO Auto-generated catch block
+	e.printStackTrace();
+}
    assertEquals('P', fm.nodeMade['P'-'A'].ch);
    assertEquals(null, fm.nodeMade['M'-'A']);
    assertEquals('W', fm.nodeMade['P'-'A'].neighbors.get(0).ch);

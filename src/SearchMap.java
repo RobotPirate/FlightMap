@@ -1,8 +1,5 @@
 
-import java.io.File;
-import java.io.FileNotFoundException;
 import java.io.IOException;
-import java.util.Scanner;
 
 public class SearchMap {
 
@@ -13,7 +10,13 @@ public class SearchMap {
 		
 		FlightMap fm = new FlightMap("input.txt", "output.txt");
 //		System.out.println("In SearchMap");
-		fm.getFlightCosts();
+		try{
+			fm.getFlightCosts();
+		}
+		catch(IOException e){
+			System.out.println("IOException: " + e.getMessage());
+		}
+		
 		//returns the outputFile string
 		
 				

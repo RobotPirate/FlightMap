@@ -1,5 +1,8 @@
+import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileNotFoundException;
+import java.io.FileWriter;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.Scanner;
@@ -45,7 +48,7 @@ public class FlightMap {
 		this.outputFile = outputFile;
 	}
 	
-	public void getFlightCosts() {
+	public void getFlightCosts() throws IOException {
 		
 		//read in a line from the file and make a node, insert cost into matrix
 		Scanner scanner = null;
@@ -92,7 +95,13 @@ public class FlightMap {
 		   costs[from - 'A'][to - 'A'] = fare;     
 		}
 		
+		//Write to file
+		BufferedWriter writer = new BufferedWriter(new FileWriter(this.outputFile));
+		
 		//Print out header: Destination        Flight From P         Total Cost
+		String heading = "Destination     Flight From " + head + "       " + "Total Cost";
+		writer.append(heading);
+		writer.append("\n");
 		System.out.println("Destination     Flight From " + head + "    " + "Total Cost");
 		
 		//Loop over destination list
@@ -102,12 +111,15 @@ public class FlightMap {
 					StringBuilder sb = new StringBuilder();
 					int returnCost = DFS(nodeMade[head-'A'], nodeMade[node.ch-'A'],sb, costs, new HashSet<Character>());
 					if( returnCost != 0) {
+						String str = node.ch + "               " + String.format("%-10s", sb.toString()) + "           " + returnCost + "\n";
+						writer.append(str);
 						System.out.print(node.ch + "               ");
 						System.out.println(String.format("%-10s", sb.toString()) + "           " + returnCost);
 					}
 				}
 			}
 		}
+		writer.close();
 	}
 	
 	public int DFS(Node FromCity, Node DestCity, StringBuilder sb, int[][]costs, HashSet<Character> seen) {
