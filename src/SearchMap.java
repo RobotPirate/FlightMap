@@ -7,7 +7,6 @@ public class SearchMap {
 
 		String inputFile = args[0];
 		String outputFile = args[1];
-		
 		FlightMap fm = new FlightMap(inputFile, outputFile);
 
 		try{

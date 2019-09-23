@@ -1,13 +1,25 @@
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertNotEquals;
+import static org.junit.Assert.assertNotNull;
+
+import java.io.IOException;
 
 import org.junit.Test;
 
 public class TestSearchMap {
-  @Test
-  public void evaluatesExpression() {
-   SearchMap s = new SearchMap();
-//    int sum = calculator.evaluate("1+2+3");
-//    assertEquals(6, sum);
-   System.out.println("TESTTESTTEST");
-  }
+  
+	@Test
+	public void mainTest() throws IOException{
+		SearchMap.main(new String[] {"input.txt", "out2"});
+		System.out.println("Main passed.");
+	}
+	
+	
+	@Test
+	public void classTest() {
+		SearchMap s = new SearchMap();
+		assertNotNull(s);
+		SearchMap s2  = new SearchMap();
+		assertNotEquals(s, s2);
+		
+	}
 }

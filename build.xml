@@ -24,6 +24,7 @@
 		<delete dir="${main.doc.dir}" />
 		<delete file="output.txt" />
 
+
 	</target>
 
 

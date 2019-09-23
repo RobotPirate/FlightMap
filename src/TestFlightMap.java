@@ -1,6 +1,7 @@
 import static org.junit.Assert.*;
 
 import java.io.IOException;
+import java.util.HashSet;
 
 import org.junit.Test;
 
@@ -22,16 +23,17 @@ public class TestFlightMap {
    assertEquals(null, fm.nodeMade[25]);
   }
   
+  
+  
   @Test
   public void getFlightCostsTest() {
-   FlightMap fm = new FlightMap("input.txt", "out");
-   assertEquals("input.txt", fm.inputFile);
-   try {
-	fm.getFlightCosts();
-} catch (IOException e) {
-	// TODO Auto-generated catch block
-	e.printStackTrace();
-}
+	FlightMap fm = new FlightMap("input.txt", "out");
+	assertEquals("input.txt", fm.inputFile);
+	try {
+		fm.getFlightCosts();
+		} catch (IOException e) {
+			e.printStackTrace();
+   }
    assertEquals('P', fm.nodeMade['P'-'A'].ch);
    assertEquals(null, fm.nodeMade['M'-'A']);
    assertEquals('W', fm.nodeMade['P'-'A'].neighbors.get(0).ch);
@@ -40,5 +42,48 @@ public class TestFlightMap {
   }
   
   
+  
+  @Test
+  public void DFSTest() {
+	FlightMap fm = new FlightMap("input.txt", "out");
+	  try {
+		fm.getFlightCosts();
+	} catch (IOException e) {
+		e.printStackTrace();
+	}
+	  
+	  //Test for Path from P to Z -- exists
+	  Node f1 = fm.nodeMade['P'-'A'];
+	  Node d1 = fm.nodeMade['Z'-'A'];
+	  StringBuilder sb = new StringBuilder();
+	  HashSet<Character> set = new HashSet<Character>();
+	  assertNotEquals(0, fm.DFS(f1, d1, sb, fm.costs, set));
+	  
+	  //Test for Path from P to Q -- !exists
+	  Node d2 = fm.nodeMade['Q'-'A'];
+	  sb = new StringBuilder();
+	  set.clear();
+	  assertEquals(0, fm.DFS(f1, d2, sb, fm.costs, set));
+	  
+	  //Test for Path from S to R -- exists
+	  Node f2 = fm.nodeMade['S'-'A'];
+	  Node d3 = fm.nodeMade['R'-'A'];
+	  sb = new StringBuilder();
+	  set.clear();
+	  assertNotEquals(0, fm.DFS(f2, d3, sb, fm.costs, set));
+	  
+	  //Test for Path from R to R -- exists
+	  Node f3 = fm.nodeMade['R'-'A'];
+	  sb = new StringBuilder();
+	  set.clear();
+	  assertNotEquals(0, fm.DFS(f3, d3, sb, fm.costs, set));
+	  
+	 //Test for Path from Z to P -- !exists
+	  Node f4 = fm.nodeMade['Z'-'A'];
+	  Node d4 = fm.nodeMade['P'-'A'];
+	  sb = new StringBuilder();
+	  set.clear();
+	  assertEquals(0, fm.DFS(f4, d4, sb, fm.costs, set));	  
+  }
   
 }

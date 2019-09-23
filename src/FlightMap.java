@@ -7,26 +7,25 @@ import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.Scanner;
 
+/**
+ * FlightMap.java
+ * This program implements a search over a set of Nodes representing city
+ * Its purpose is to put the flight paths from one city, and the cost and itinerary it takes to get to each destination.
+ * @author Cerina da Graca
+ * @since 2019-09-22
+ */
 
-class Node {
-	char ch;
-	ArrayList<Node> neighbors;
-	
-	
-	/**
-	 * Node class
-	 * which will then return the cost of flights in the 
-	 * file designated as output
-	 * @param ch somewords
-	 */
-	//Constructor
-	Node(char ch){
-		this.ch = ch;
-		neighbors = new ArrayList<Node>();
-	}
-}
 
 public class FlightMap {
+	/**
+	 * FlightMap class
+	 * This class implements a search over a set of Nodes representing city
+	 * Its purpose is to put the flight paths from one city, and the cost and itinerary it takes to get to each destination.
+	 * @author Cerina da Graca
+	 * @since 2019-09-22
+	 */
+	
+	
 	int[][] costs = new int[26][26];	//adjacency matrix for the edges
 	Node[] nodeMade = new Node[26];
 	String inputFile;
@@ -38,9 +37,6 @@ public class FlightMap {
 	 * file designated as output
 	 * @param inputFile an input file
 	 * @param outputFile an output file
-	 * @pre none
-	 * @post this.inputFile = @param inputFile
-	 * @post this.outputFile = @param outputFile
 	 */
 	//constructor
 	public FlightMap(String inputFile, String outputFile) {		
@@ -122,12 +118,16 @@ public class FlightMap {
 		writer.close();
 	}
 	
+	
+	
+	//Returns 0 if there is no path. Returns the cost of the flight from FromCity to DestCity if there is a path
 	public int DFS(Node FromCity, Node DestCity, StringBuilder sb, int[][]costs, HashSet<Character> seen) {
 		if(FromCity.ch == DestCity.ch) {
 			sb.append(DestCity.ch);
 			return -1;
 		}
 
+		//In a loop, return 0
 		if(seen.contains(FromCity.ch)) {
 			return 0;
 		}
@@ -157,4 +157,23 @@ public class FlightMap {
 		return 0;
 	}
 	
+}
+
+
+class Node {
+	char ch;
+	ArrayList<Node> neighbors;
+	
+	
+	/**
+	 * Node class
+	 * which will then return the cost of flights in the 
+	 * file designated as output
+	 * @param ch somewords
+	 */
+	//Constructor
+	Node(char ch){
+		this.ch = ch;
+		neighbors = new ArrayList<Node>();
+	}
 }
