@@ -1,7 +1,10 @@
 import static org.junit.Assert.*;
 
+import java.io.File;
+import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.util.HashSet;
+import java.util.Scanner;
 
 import org.junit.Test;
 
@@ -39,6 +42,33 @@ public class TestFlightMap {
    assertEquals('W', fm.nodeMade['P'-'A'].neighbors.get(0).ch);
    assertEquals(300, fm.costs['S'-'A']['T'-'A']);
    assertEquals(500, fm.costs['W'-'A']['Y'-'A']);
+  }
+  
+  @Test
+  public void EmptyInputFileTest() {
+	  FlightMap fm = new FlightMap("empty_input.txt", "empty_out");
+	  try {
+		  fm.getFlightCosts();
+	  } catch (IOException e) {
+		  e.printStackTrace();
+	  }
+	  assertNotEquals(null, fm);
+	  
+	  //Test that output file has only header in it
+	  Scanner scanner = null;
+	  try {
+		scanner = new Scanner(new File("empty_out"));
+	  } catch (FileNotFoundException e) {
+		// TODO Auto-generated catch block
+		e.printStackTrace();
+	  }
+	  //Count # of lines in output file
+	  int count = 0;
+	  while (scanner.hasNextLine()) {
+	      count++;
+	      scanner.nextLine();
+	  }
+	   assertEquals(1, count);
   }
   
   
@@ -85,5 +115,7 @@ public class TestFlightMap {
 	  set.clear();
 	  assertEquals(0, fm.DFS(f4, d4, sb, fm.costs, set));	  
   }
+  
+  
   
 }

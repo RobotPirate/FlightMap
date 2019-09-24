@@ -14,26 +14,15 @@ import java.util.Scanner;
  * @author Cerina da Graca
  * @since 2019-09-22
  */
-
-
 public class FlightMap {
-/**
- * FlightMap class
- * This class implements a search over a set of Nodes representing city
- * Its purpose is to put the flight paths from one city, and the cost and itinerary it takes to get to each destination.
- * @author Cerina da Graca
- * @since 2019-09-22
- */
-	
-	
 	int[][] costs = new int[26][26];	//adjacency matrix for the edges
 	Node[] nodeMade = new Node[26];
 	String inputFile;
 	String outputFile;
 	
 	
-	//constructor
-	public FlightMap(String inputFile, String outputFile) {	
+	
+	
 	/**
 	 * FlightMap constructor
 	 * which will then return the cost of flights in the 
@@ -43,12 +32,12 @@ public class FlightMap {
 	 * @param inputFile an input file
 	 * @param outputFile an output file
 	 */
-		
+	public FlightMap(String inputFile, String outputFile) {		
 		this.inputFile = inputFile;
 		this.outputFile = outputFile;
 	}
 	
-	public void getFlightCosts() throws IOException {
+	
 	/**
 	 * getFlightCosts() 
 	 * This function operates on an instance of FlightMap, 
@@ -57,10 +46,9 @@ public class FlightMap {
 	 * Precondition: an instance of FlightMap is created, with an input and output file
 	 * Postcondition: the FlightMap object's output file will contain a list of destinations it can reach, 
 	 * the flights it takes to get there, and the sum costs of the flights, if such exists
-	 * @param none
-	 * @return none
+	 * @throws IOException if input file cannot be read
 	 */
-		
+	public void getFlightCosts() throws IOException {	
 		//read in a line from the file and make a node, insert cost into matrix
 		Scanner scanner = null;
 		try {
@@ -120,6 +108,7 @@ public class FlightMap {
 			if(node != null) {
 				if(node.ch != head) {
 					StringBuilder sb = new StringBuilder();
+					if(head == '0') break;	//File was empty, head did not have a value
 					int returnCost = DFS(nodeMade[head-'A'], nodeMade[node.ch-'A'],sb, costs, new HashSet<Character>());
 					if( returnCost != 0) {
 						String str = node.ch + "               " + String.format("%-28s", sb.toString()) + 
@@ -136,6 +125,20 @@ public class FlightMap {
 	}
 	
 	
+	
+	
+	/**
+	 * DFS() 
+	 * This function runs depth first search from a source node to the destination node
+	 * Precondition: Nodes are created, and their directed edge costs are put into int[][]costs
+	 * Postcondition: The StringBuilder sb passed into the function will contain the path from source to destination if it exists
+	 * @param FromCity -- a node
+	 * @param DestCity -- a node
+	 * @param sb -- StringBuilder 
+	 * @param costs -- int[][] representing directed edge costs
+	 * @param seen -- a hashset of characters
+	 * @return the cost of flights from source to destination
+	 */
 	
 	//Returns 0 if there is no path. Returns the cost of the flight from FromCity to DestCity if there is a path
 	public int DFS(Node FromCity, Node DestCity, StringBuilder sb, int[][]costs, HashSet<Character> seen) {
@@ -177,16 +180,22 @@ public class FlightMap {
 }
 
 
+
+
+/**
+ * Node class represents one city
+ * Each node has possible neighbors, which are cities 
+ * it can get to by direct flight
+ */
 class Node {
 	char ch;
 	ArrayList<Node> neighbors;
 	
-	
 	/**
-	 * Node class
-	 * which will then return the cost of flights in the 
-	 * file designated as output
-	 * @param ch somewords
+	 * Node constructor
+	 * Creates a new Node
+	 * @param Character representing the city
+	 * @return none
 	 */
 	//Constructor
 	Node(char ch){

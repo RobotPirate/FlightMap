@@ -2,4 +2,5 @@
 /dist/
 /doc/
 output.txt
-out
+out*
+empty*
