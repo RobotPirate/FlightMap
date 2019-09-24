@@ -11,12 +11,14 @@ import org.junit.Test;
 public class TestFlightMap {
   @Test
   public void NodeConstructorTest() {
+   System.out.println("TestFlightMap " + 1);
    Node node = new Node('c');
    assertEquals('c', node.ch);
   }
   
   @Test
   public void FlightMapConstructorTest() {
+   System.out.println("TestFlightMap " + 2);
    FlightMap fm = new FlightMap("in", "out");
    assertEquals("in", fm.inputFile);
    assertEquals("out", fm.outputFile);
@@ -30,6 +32,7 @@ public class TestFlightMap {
   
   @Test
   public void getFlightCostsTest() {
+	System.out.println("TestFlightMap " + 3);
 	FlightMap fm = new FlightMap("input.txt", "out");
 	assertEquals("input.txt", fm.inputFile);
 	try {
@@ -46,6 +49,7 @@ public class TestFlightMap {
   
   @Test
   public void EmptyInputFileTest() {
+	  System.out.println("TestFlightMap " + 4);
 	  FlightMap fm = new FlightMap("empty_input.txt", "empty_out");
 	  try {
 		  fm.getFlightCosts();
@@ -75,6 +79,7 @@ public class TestFlightMap {
   
   @Test
   public void DFSTest() {
+    System.out.println("TestFlightMap " + 5);
 	FlightMap fm = new FlightMap("input.txt", "out");
 	  try {
 		fm.getFlightCosts();

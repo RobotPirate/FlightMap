@@ -12,6 +12,7 @@ public class TestSearchMap {
   
 	@Test
 	public void mainTest() throws IOException{
+		System.out.println("TestSearchMap " + 1);
 		SearchMap.main(new String[] {"input.txt", "out2"});
 		Scanner scanner = null;
 		  try {
@@ -33,6 +34,7 @@ public class TestSearchMap {
 	
 	@Test
 	public void classTest() {
+		System.out.println("TestSearchMap "+2);
 		SearchMap s = new SearchMap();
 		assertNotNull(s);
 		SearchMap s2  = new SearchMap();
