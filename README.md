@@ -1,71 +1,7 @@
-# CS310_Project1
- CS310 Project 1
+# FlightMap Project
+FlightMap is a Java program that implements a searchable flight map.
+Input: text file that stores a flight map annotated with flying costs and an origin city. 
+Output: the route to each city that can be reached from the origin city and the
+associated total cost. 
 
- <?xml version = "1.0"?>
-<project name="FlightMap" basedir="." default="compile">
-
-	<property name="main.source.dir" value="src" />
-	<property name="main.build.dir" value="build/main" />
-	<property name="main.doc.dir" location="doc" />
-	<property name="main.dist.dir" location="dist" />
-	<property name="test.build.dir" value="build/test" />
-	<property name="test.source.dir" value="test" />
-
-
-	<!-- set up some directories used by this project -->
-	<target name="init" description="setup project directories">
-		<mkdir dir="${main.source.dir}" />
-		<mkdir dir="${main.build.dir}" />
-		<mkdir dir="${main.dist.dir}" />
-		<mkdir dir="${main.doc.dir}" />
-	</target>
-
-	<target name="clean">
-		<delete dir="${build.dir}" />
-		<delete dir="${main.build.dir}" />
-		<delete dir="${test.build.dir}" />
-	</target>
-
-
-	<target name="compile" depends="init" description="compile java sources">
-		<javac srcdir="${main.source.dir}" destdir="${main.build.dir}" includeantruntime="false" debug="true" debuglevel="lines,vars,source" />
-	</target>
-
-	<target name="dist">
-		<jar destfile="${main.dist.dir}/SearchMap.jar" basedir="${main.build.dir}">
-			<manifest>
-				<attribute name="Main-Class" value="Project1.SearchMap" />
-			</manifest>
-		</jar>
-	</target>
-
-	<target name="run">
-		<java jar="${main.dist.dir}/SearchMap.jar" fork="true" />
-	</target>
-
-	<!-- test stuff -->
-	<path id="classpath.test">
-		<pathelement location="lib/junit-4.12.jar" />
-		<pathelement location="lib/hamcrest-core-1.3.jar" />
-		<pathelement location="${main.build.dir}" />
-	</path>
-
-	<target name="test" depends="compile">
-		<mkdir dir="${test.build.dir}" />
-		<javac srcdir="${test.source.dir}" destdir="${test.build.dir}" includeantruntime="false">
-			<classpath refid="classpath.test" />
-		</javac>
-		<junit printsummary="on" haltonfailure="yes" fork="true">
-			<classpath>
-				<path refid="classpath.test" />
-				<pathelement location="${test.build.dir}" />
-			</classpath>
-			<formatter type="brief" usefile="false" />
-			<batchtest>
-				<fileset dir="${test.source.dir}" includes="**/Test*.java" />
-			</batchtest>
-		</junit>
-	</target>
-
-
-</project>
+Additional: Included are the Ant build scripts and Java unit tests
